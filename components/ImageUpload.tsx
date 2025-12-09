@@ -60,6 +60,15 @@ export default function ImageUpload({ onUpload, label, businessName }: ImageUplo
       }
 
       const file = event.target.files[0];
+
+      // Check file size (10MB = 10 * 1024 * 1024 bytes)
+      const maxSize = 10 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert('File size must be less than 10MB');
+        setUploading(false);
+        return;
+      }
+
       const fileExt = file.name.split('.').pop();
       const fileName = `${Math.random()}.${fileExt}`;
       const filePath = `${fileName}`;
@@ -121,7 +130,7 @@ export default function ImageUpload({ onUpload, label, businessName }: ImageUplo
               className="hidden"
             />
           </label>
-          <p className="text-xs text-gray-500 mt-2">JPG, PNG or WEBP. Max 2MB.</p>
+          <p className="text-xs text-gray-500 mt-2">JPG, PNG or WEBP. Max 10MB.</p>
         </div>
       </div>
     </div>
