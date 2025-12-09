@@ -16,8 +16,9 @@ export default function middleware(req: NextRequest) {
   const isIPAddress = /^(\d{1,3}\.){3}\d{1,3}(:\d+)?$/.test(hostname)
 
   // 2. Define the main domains that should NOT be rewritten
-  // If it is localhost, IP address, www, or bizhub.kiwi, do nothing
-  if (isLocalhost || isIPAddress || hostname === "www" || hostname === "bizhub.kiwi") {
+  // If it is localhost, IP address, www, bizhub.kiwi, or Vercel URLs, do nothing
+  const isVercelURL = hostname.includes("vercel.app")
+  if (isLocalhost || isIPAddress || isVercelURL || hostname === "www" || hostname === "bizhub.kiwi") {
     return NextResponse.next()
   }
 
