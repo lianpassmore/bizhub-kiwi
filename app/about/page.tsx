@@ -33,7 +33,7 @@ export default function About() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <a href="mailto:penny@bizhub.kiwi" className="bg-[#F2547D] text-white px-8 py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-white hover:text-[#F2547D] transition shadow-lg shadow-[#F2547D]/25">
+              <a href="mailto:pennyrose.mackay@gmail.com" className="bg-[#F2547D] text-white px-8 py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-white hover:text-[#F2547D] transition shadow-lg shadow-[#F2547D]/25">
                 Get in Touch
               </a>
               <Link href="/signup" className="border border-white/20 text-white px-8 py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-white/10 transition">
@@ -148,13 +148,13 @@ export default function About() {
              </div>
           </a>
 
-          <a href="mailto:penny@bizhub.kiwi" className="flex items-center gap-4 bg-night-900 border border-white/10 px-8 py-6 rounded-2xl hover:border-[#FDBA74] transition group text-left">
+          <a href="mailto:pennyrose.mackay@gmail.com" className="flex items-center gap-4 bg-night-900 border border-white/10 px-8 py-6 rounded-2xl hover:border-[#FDBA74] transition group text-left">
              <div className="w-12 h-12 bg-[#FDBA74]/20 rounded-full flex items-center justify-center text-[#FDBA74] group-hover:scale-110 transition">
                <MessageCircle className="w-6 h-6" />
              </div>
              <div>
                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">Email Me</p>
-               <p className="text-xl font-black text-white">penny@bizhub.kiwi</p>
+               <p className="text-xl font-black text-white">pennyrose.mackay@gmail.com</p>
              </div>
           </a>
         </div>

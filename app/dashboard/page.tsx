@@ -49,7 +49,7 @@ export default function Dashboard() {
   // Helper for Concierge Requests
   const requestAddon = (subject: string) => {
     const body = `Hi Penny,%0D%0A%0D%0AI'm interested in the ${subject} for my business (${business.name}).%0D%0A%0D%0APlease let me know the details!`;
-    window.location.href = `mailto:support@bizhub.kiwi?subject=Request: ${subject}&body=${body}`;
+    window.location.href = `mailto:pennyrose.mackay@gmail.com?subject=Request: ${subject}&body=${body}`;
   };
 
   if (loading) return <div className="min-h-screen bg-night-950 flex items-center justify-center text-neon-cyan">Loading...</div>;
@@ -168,8 +168,8 @@ export default function Dashboard() {
           >
             <Phone className="w-6 h-6" />
           </a>
-          <a 
-            href="mailto:support@bizhub.kiwi"
+          <a
+            href="mailto:pennyrose.mackay@gmail.com"
             className="w-14 h-14 bg-night-800 border border-white/20 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 transition cursor-pointer hover:bg-night-700"
             title="Email Support"
           >
