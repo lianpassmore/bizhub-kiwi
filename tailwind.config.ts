@@ -28,9 +28,10 @@ const config: Config = {
         }
       },
       boxShadow: {
-        // "Hard" shadows instead of "Glows" (Cleaner look)
-        'pop': '4px 4px 0px 0px rgba(15, 23, 42, 1)', 
-        'pop-hover': '2px 2px 0px 0px rgba(15, 23, 42, 1)',
+        // "Hard" shadows for tactile "Cardboard Cutout" look
+        'pop': '4px 4px 0px 0px #000000',        // Hard black shadow
+        'pop-hover': '2px 2px 0px 0px #000000',  // Pressed state
+        'card': '0 0 0 2px #0f172a',             // Faux border
         'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
       },
       animation: {
