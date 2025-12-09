@@ -147,8 +147,8 @@ export default function Dashboard() {
            </div>
         </div>
 
-        {/* UPGRADES */}
-        {business.subscription_tier === 'free' ? (
+        {/* UPGRADES - Only show for free users */}
+        {business.subscription_tier === 'free' && (
           <>
             <h2 className="text-2xl font-black text-slate-900 mb-4 flex items-center gap-3 uppercase tracking-tight">
               <span className="text-3xl">⚡</span> Upgrade Your Profile
@@ -213,13 +213,12 @@ export default function Dashboard() {
               </div>
             </div>
           </>
-        ) : (
-          <>
-            <h2 className="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3 uppercase tracking-tight">
-              <span className="text-3xl">⚡</span> Premium Add-ons
-            </h2>
-          </>
         )}
+
+        {/* PREMIUM ADD-ONS */}
+        <h2 className="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3 uppercase tracking-tight">
+          <span className="text-3xl">⚡</span> Premium Add-ons
+        </h2>
 
         <div className="grid md:grid-cols-2 gap-8 mb-12">
 
