@@ -54,7 +54,11 @@ export default function Dashboard() {
 
   if (loading) return <div className="min-h-screen bg-night-950 flex items-center justify-center text-neon-cyan">Loading...</div>;
 
-  if (!business) return null; // (Keep your existing empty state code here if you want)
+  // If user doesn't have a business profile yet, redirect to onboarding
+  if (!business) {
+    router.push('/onboarding');
+    return <div className="min-h-screen bg-night-950 flex items-center justify-center text-neon-cyan">Redirecting to onboarding...</div>;
+  }
 
   const businessUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/business/${business.slug}`;
 
