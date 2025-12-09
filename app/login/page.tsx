@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
@@ -20,7 +19,7 @@ export default function Login() {
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
-      password,
+      password
     });
 
     if (error) {
@@ -32,66 +31,31 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 relative overflow-hidden">
-      <div className="max-w-md w-full bg-white border border-gray-200 p-8 rounded-2xl shadow-lg relative z-10">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors mb-6 group"
-        >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="text-sm font-bold uppercase tracking-wider">Back to Home</span>
+    <div className="min-h-screen bg-[#FFFDF9] flex items-center justify-center p-4" style={{ backgroundImage: 'radial-gradient(#cbd5e1 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}>
+      <div className="max-w-md w-full bg-white border-2 border-black p-8 rounded-2xl shadow-pop relative z-10">
+        <Link href="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 font-bold uppercase tracking-wider mb-6 text-xs">
+          <ArrowLeft className="w-4 h-4" /> Back to Home
         </Link>
-
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Access your BizHub dashboard.</p>
+          <h1 className="text-4xl font-black text-slate-900 mb-2 uppercase tracking-tight">Welcome Back</h1>
+          <p className="text-slate-500 font-medium">Log in to your BizHub account.</p>
         </div>
-
-        {error && (
-          <div className="bg-red-50 border border-red-300 text-red-700 p-3 rounded-lg mb-6 text-sm">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleLogin} className="space-y-6">
+        {error && <div className="bg-red-50 border-2 border-red-100 text-red-600 p-3 rounded-xl mb-6 text-sm font-bold">{error}</div>}
+        <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">Email Address</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full bg-white border border-gray-300 rounded-lg p-3 text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-              placeholder="sam@example.co.nz"
-            />
+            <label className="block text-xs font-black text-slate-900 uppercase tracking-wider mb-2">Email</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-bold focus:border-black outline-none" placeholder="sam@example.co.nz" />
           </div>
-
           <div>
-            <label className="block text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full bg-white border border-gray-300 rounded-lg p-3 text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-              placeholder="••••••••"
-            />
+            <label className="block text-xs font-black text-slate-900 uppercase tracking-wider mb-2">Password</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-bold focus:border-black outline-none" placeholder="••••••••" />
           </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold tracking-wide py-3 px-4 rounded-lg transition-all duration-300 shadow-lg flex items-center justify-center"
-          >
-            {loading ? <Loader2 className="animate-spin w-5 h-5" /> : 'LOG IN'}
+          <button type="submit" disabled={loading} className="w-full bg-neon-pink border-2 border-black text-white font-black py-4 rounded-xl shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase tracking-wider flex justify-center">
+            {loading ? <Loader2 className="animate-spin" /> : 'Log In'}
           </button>
         </form>
-
-        <div className="mt-8 text-center text-sm text-gray-600">
-          Don't have a profile?{' '}
-          <Link href="/signup" className="text-blue-600 hover:text-blue-700 transition font-bold">
-            Get Listed
-          </Link>
+        <div className="mt-8 text-center text-sm font-bold text-slate-500">
+          Don&apos;t have an account? <Link href="/signup" className="text-slate-900 underline hover:text-neon-pink">Create one here</Link>
         </div>
       </div>
     </div>

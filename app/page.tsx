@@ -16,10 +16,10 @@ export default function Home() {
     <main className="min-h-screen bg-[#FFFDF9] text-slate-900 font-sans selection:bg-neon-pink selection:text-white">
       <Navbar />
 
-      {/* BACKGROUND GRID PATTERN */}
+      {/* BACKGROUND GRID PATTERN (Subtle Texture) */}
       <div className="absolute inset-0 z-0 pointer-events-none" 
            style={{ 
-             backgroundImage: 'radial-gradient(#e2e8f0 1.5px, transparent 1.5px)', 
+             backgroundImage: 'radial-gradient(#cbd5e1 1.5px, transparent 1.5px)', 
              backgroundSize: '24px 24px' 
            }}>
       </div>
@@ -49,12 +49,12 @@ export default function Home() {
                 No Ads. No Algorithms. Just <span className="font-black bg-neon-cyan/30 px-1 border-b-2 border-neon-cyan">10,000+ Kiwi Legends</span> doing their thing.
               </p>
 
-              {/* SEARCH BAR ANCHOR */}
+              {/* SEARCH BAR ANCHOR (Slight Rotation for Style) */}
               <div className="relative z-20 transform md:-rotate-1 transition-transform hover:rotate-0 duration-300">
                 <SearchBar />
               </div>
               
-              {/* TRUST PILLS */}
+              {/* TRUST PILLS (Tactile Style) */}
               <div className="mt-12 flex flex-wrap gap-4 text-xs font-bold uppercase tracking-wider text-slate-900">
                 <div className="flex items-center gap-2 bg-white border-2 border-black px-4 py-2 rounded-full shadow-sm hover:-translate-y-1 transition-transform cursor-default">
                    <CheckCircle className="w-4 h-4 text-green-600" /> Verified Listings
@@ -63,18 +63,18 @@ export default function Home() {
                    <Shield className="w-4 h-4 text-purple-600" /> Ad-Free Zone
                 </div>
                 <div className="flex items-center gap-2 bg-white border-2 border-black px-4 py-2 rounded-full shadow-sm hover:-translate-y-1 transition-transform cursor-default">
-                   <MapPin className="w-4 h-4 text-red-600" /> 100% Kiwi
+                   <MapPin className="w-4 h-4 text-red-500" /> 100% Kiwi
                 </div>
               </div>
             </div>
 
-            {/* RIGHT: MASONRY GRID (FIXED STYLE) */}
+            {/* RIGHT: MASONRY GRID (Tactile/Card Style) */}
             <div className="hidden lg:flex gap-6 h-[650px] overflow-hidden relative -right-10">
               
               {/* Column 1 */}
               <div className="flex flex-col gap-6 animate-scroll-up w-1/2">
                 {[...MASONRY_IMAGES, ...MASONRY_IMAGES].map((src, i) => (
-                  <div key={i} className="w-full aspect-[4/5] bg-white rounded-xl overflow-hidden border-2 border-black shadow-pop">
+                  <div key={i} className="w-full aspect-[4/5] bg-white rounded-xl overflow-hidden border-2 border-black shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
                     <img src={src} alt="Business" className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" />
                   </div>
                 ))}
@@ -83,7 +83,7 @@ export default function Home() {
               {/* Column 2 */}
               <div className="flex flex-col gap-6 animate-scroll-down mt-12 w-1/2">
                 {[...MASONRY_IMAGES, ...MASONRY_IMAGES].reverse().map((src, i) => (
-                  <div key={i} className="w-full aspect-[4/5] bg-white rounded-xl overflow-hidden border-2 border-black shadow-pop">
+                  <div key={i} className="w-full aspect-[4/5] bg-white rounded-xl overflow-hidden border-2 border-black shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
                     <img src={src} alt="Business" className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" />
                   </div>
                 ))}

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
-import { ExternalLink, Edit, Eye, LogOut, Share2, Activity, Layout, Check, CreditCard, HelpCircle, Globe, Mail, Phone } from 'lucide-react';
+import { ExternalLink, Edit, Eye, LogOut, Globe, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Dashboard() {
@@ -38,109 +38,118 @@ export default function Dashboard() {
     router.push('/');
   };
 
-  const handleCopyLink = () => {
-    if (!business) return;
-    const url = `${window.location.origin}/business/${business.slug}`;
-    navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   // Helper for Concierge Requests
   const requestAddon = (subject: string) => {
     const body = `Hi Penny,%0D%0A%0D%0AI'm interested in the ${subject} for my business (${business.name}).%0D%0A%0D%0APlease let me know the details!`;
     window.location.href = `mailto:pennyrose.mackay@gmail.com?subject=Request: ${subject}&body=${body}`;
   };
 
-  if (loading) return <div className="min-h-screen bg-gray-50 flex items-center justify-center text-blue-600">Loading...</div>;
+  if (loading) return <div className="min-h-screen bg-[#FFFDF9] flex items-center justify-center text-slate-900 font-bold">Loading HQ...</div>;
 
-  // If user doesn't have a business profile yet, redirect to onboarding
   if (!business) {
     router.push('/onboarding');
-    return <div className="min-h-screen bg-gray-50 flex items-center justify-center text-blue-600">Redirecting to onboarding...</div>;
+    return null;
   }
 
-  const businessUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/business/${business.slug}`;
-
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
+    <div className="min-h-screen bg-[#FFFDF9] pb-24 font-sans selection:bg-neon-pink selection:text-white">
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 py-24 md:pt-32">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
           <div>
-            <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-2 uppercase tracking-tight">Mission Control</h1>
-            <p className="text-gray-600 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <div className="inline-block px-3 py-1 bg-green-100 border-2 border-black rounded-lg text-xs font-black uppercase tracking-widest mb-4 shadow-sm">
+              <span className="w-2 h-2 inline-block bg-green-500 rounded-full mr-2"></span>
+              System Online
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black text-slate-900 uppercase tracking-tighter leading-none">
+              Mission Control
+            </h1>
+            <p className="text-slate-600 font-medium text-lg mt-2">
               Welcome back, {business.name}
             </p>
           </div>
-          <button onClick={handleSignOut} className="hidden md:flex items-center gap-2 text-gray-600 hover:text-slate-900 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
-            <LogOut className="w-4 h-4" /> Sign Out
+          <button onClick={handleSignOut} className="flex items-center gap-2 text-slate-900 font-bold uppercase tracking-wider border-2 border-slate-200 px-6 py-3 rounded-xl hover:border-red-500 hover:text-red-600 hover:bg-red-50 transition-all">
+            <LogOut className="w-5 h-5" /> Sign Out
           </button>
         </div>
 
-        {/* Business Card */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 mb-8 shadow-sm relative">
-           <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start relative z-10">
-            <div className="w-24 h-24 md:w-32 md:h-32 bg-gray-100 rounded-2xl overflow-hidden shrink-0 border border-gray-200 shadow-sm">
-              {business.logo_url ? <img src={business.logo_url} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold">?</div>}
+        {/* Main Business Card */}
+        <div className="bg-white border-2 border-black rounded-2xl p-6 md:p-10 mb-12 shadow-pop relative overflow-hidden">
+           {/* Decorative strip */}
+           <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-neon-pink via-neon-purple to-neon-cyan border-b-2 border-black"></div>
+           
+           <div className="flex flex-col md:flex-row gap-8 items-start relative z-10 pt-4">
+            {/* Logo */}
+            <div className="w-24 h-24 md:w-32 md:h-32 bg-slate-50 rounded-2xl overflow-hidden shrink-0 border-2 border-black shadow-sm">
+              {business.logo_url ? <img src={business.logo_url} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center text-slate-400 font-black text-2xl">?</div>}
             </div>
+            
+            {/* Info */}
             <div className="flex-1 w-full">
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">{business.name}</h2>
-              <p className="text-gray-600 mb-4">📍 {business.region}</p>
-              <div className="flex gap-3">
-                <Link href={`/business/${business.slug}`} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition"><Eye className="w-4 h-4"/> View Live</Link>
-                <Link href="/dashboard/edit" className="border border-gray-300 text-slate-700 px-5 py-2.5 rounded-lg font-medium hover:border-blue-500 hover:text-blue-600 flex items-center gap-2 transition"><Edit className="w-4 h-4"/> Edit Profile</Link>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-2 uppercase">{business.name}</h2>
+              <div className="flex items-center gap-2 text-slate-500 font-bold uppercase tracking-wider text-sm mb-6">
+                <span className="bg-slate-100 px-2 py-1 rounded border border-slate-200">{business.region}</span>
+                <span>•</span>
+                <span className="bg-slate-100 px-2 py-1 rounded border border-slate-200">{business.category}</span>
+              </div>
+              
+              <div className="flex flex-wrap gap-4">
+                <Link href={`/business/${business.slug}`} className="bg-neon-cyan text-slate-900 border-2 border-black px-6 py-3 rounded-xl font-black uppercase tracking-wider flex items-center gap-2 hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all shadow-pop">
+                  <Eye className="w-5 h-5"/> View Live
+                </Link>
+                <Link href="/dashboard/edit" className="bg-white text-slate-900 border-2 border-black px-6 py-3 rounded-xl font-black uppercase tracking-wider flex items-center gap-2 hover:bg-slate-50 hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all shadow-pop">
+                  <Edit className="w-5 h-5"/> Edit Profile
+                </Link>
               </div>
             </div>
            </div>
         </div>
 
-        {/* CONCIERGE UPGRADES */}
-        <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-          <span className="text-amber-500">⚡</span> Premium Add-ons
+        {/* UPGRADES */}
+        <h2 className="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3 uppercase tracking-tight">
+          <span className="text-3xl">⚡</span> Premium Add-ons
         </h2>
         
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
 
           {/* Domain Card */}
-          <div className="bg-white border border-gray-200 p-6 rounded-2xl hover:border-blue-400 hover:shadow-md transition group">
-            <div className="flex justify-between items-start mb-4">
-              <div className="p-3 bg-blue-50 rounded-xl text-blue-600">
-                <Globe className="w-6 h-6" />
+          <div className="bg-white border-2 border-black p-8 rounded-2xl hover:shadow-pop transition-all group relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-slate-100 border-l-2 border-b-2 border-black px-3 py-1 text-xs font-black uppercase">Optional</div>
+            <div className="flex justify-between items-start mb-6">
+              <div className="p-4 bg-blue-100 border-2 border-black rounded-xl text-blue-600 shadow-sm">
+                <Globe className="w-8 h-8" />
               </div>
-              <span className="bg-gray-100 text-xs font-bold px-2 py-1 rounded text-gray-600 border border-gray-200">Add-on</span>
             </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Custom Domain Name</h3>
-            <p className="text-gray-600 text-sm mb-6">
-              Get a professional <span className="text-slate-900 font-mono">www.{business.slug.replace(/-/g, '')}.co.nz</span> domain that forwards directly to your page.
+            <h3 className="text-xl font-black text-slate-900 mb-3 uppercase">Custom Domain Name</h3>
+            <p className="text-slate-600 font-medium mb-8">
+              Get a professional <span className="text-slate-900 font-black bg-slate-100 px-1">www.{business.slug.replace(/-/g, '')}.co.nz</span> address that forwards to your page.
             </p>
             <button
               onClick={() => requestAddon('Custom Domain (.co.nz)')}
-              className="w-full py-3 border border-blue-500 text-blue-600 font-bold rounded-lg hover:bg-blue-600 hover:text-white transition uppercase tracking-wider text-sm"
+              className="w-full py-4 border-2 border-black bg-slate-50 text-slate-900 font-black rounded-xl hover:bg-blue-500 hover:text-white transition uppercase tracking-wider text-sm shadow-sm"
             >
               Request Setup
             </button>
           </div>
 
           {/* Email Card */}
-          <div className="bg-white border border-gray-200 p-6 rounded-2xl hover:border-green-400 hover:shadow-md transition group">
-            <div className="flex justify-between items-start mb-4">
-              <div className="p-3 bg-green-50 rounded-xl text-green-600">
-                <Mail className="w-6 h-6" />
+          <div className="bg-white border-2 border-black p-8 rounded-2xl hover:shadow-pop transition-all group relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-slate-100 border-l-2 border-b-2 border-black px-3 py-1 text-xs font-black uppercase">Optional</div>
+            <div className="flex justify-between items-start mb-6">
+              <div className="p-4 bg-green-100 border-2 border-black rounded-xl text-green-600 shadow-sm">
+                <Mail className="w-8 h-8" />
               </div>
-              <span className="bg-gray-100 text-xs font-bold px-2 py-1 rounded text-gray-600 border border-gray-200">Add-on</span>
             </div>
-            <h3 className="text-lg font-bold text-slate-900 mb-2">Professional Email</h3>
-            <p className="text-gray-600 text-sm mb-6">
-              Look professional with <span className="text-slate-900 font-mono">hello@{business.slug.replace(/-/g, '')}.co.nz</span>. Includes setup and forwarding.
+            <h3 className="text-xl font-black text-slate-900 mb-3 uppercase">Professional Email</h3>
+            <p className="text-slate-600 font-medium mb-8">
+              Look professional with <span className="text-slate-900 font-black bg-slate-100 px-1">hello@{business.slug.replace(/-/g, '')}.co.nz</span>. Includes setup.
             </p>
             <button
               onClick={() => requestAddon('Professional Email')}
-              className="w-full py-3 border border-green-500 text-green-600 font-bold rounded-lg hover:bg-green-600 hover:text-white transition uppercase tracking-wider text-sm"
+              className="w-full py-4 border-2 border-black bg-slate-50 text-slate-900 font-black rounded-xl hover:bg-green-500 hover:text-white transition uppercase tracking-wider text-sm shadow-sm"
             >
               Request Setup
             </button>
@@ -150,24 +159,15 @@ export default function Dashboard() {
 
       </div>
 
-      {/* FLOATING HELP BUTTON (Penny Widget) */}
+      {/* FLOATING PENNY WIDGET */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4 pointer-events-none">
-
-        {/* The Buttons */}
         <div className="flex flex-col gap-3 pointer-events-auto">
           <a
             href="tel:0212997881"
-            className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 hover:bg-blue-700 transition cursor-pointer"
+            className="w-16 h-16 bg-neon-cyan border-2 border-black rounded-full flex items-center justify-center text-slate-900 shadow-pop hover:scale-110 hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer"
             title="Call Penny"
           >
-            <Phone className="w-6 h-6" />
-          </a>
-          <a
-            href="mailto:pennyrose.mackay@gmail.com"
-            className="w-14 h-14 bg-white border border-gray-300 rounded-full flex items-center justify-center text-slate-700 shadow-lg hover:scale-110 transition cursor-pointer hover:bg-gray-50"
-            title="Email Support"
-          >
-            <HelpCircle className="w-6 h-6" />
+            <Phone className="w-8 h-8" />
           </a>
         </div>
       </div>

@@ -28,7 +28,8 @@ export default function SearchBar() {
   const hasFilters = searchQuery || region || category;
 
   return (
-    <div className="bg-white p-2 rounded-2xl border-2 border-slate-900 flex flex-col gap-2 shadow-pop hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(15,23,42,1)] transition-all duration-300">
+    // UPDATED CONTAINER: Solid black border, pop shadow
+    <div className="bg-white p-3 rounded-2xl border-2 border-black flex flex-col gap-3 shadow-pop hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#000000] transition-all duration-300">
 
       {/* Top Row: Search Input */}
       <div className="relative">
@@ -38,19 +39,19 @@ export default function SearchBar() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search businesses, services..."
-          className="w-full p-4 pl-12 bg-transparent rounded-xl text-slate-900 font-bold outline-none hover:bg-slate-50 transition"
+          className="w-full p-4 pl-12 bg-slate-50 border-2 border-transparent focus:border-black focus:bg-white rounded-xl text-slate-900 font-bold outline-none transition-all"
         />
       </div>
 
       {/* Middle Row: Region and Category */}
-      <div className="flex flex-col sm:flex-row gap-2">
+      <div className="flex flex-col sm:flex-row gap-3">
         {/* Region Dropdown */}
         <div className="flex-1 relative">
           <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
           <select
             onChange={(e) => setRegion(e.target.value)}
             value={region}
-            className="w-full h-full p-4 pl-12 bg-transparent rounded-xl text-slate-900 font-bold outline-none appearance-none cursor-pointer hover:bg-slate-50 transition"
+            className="w-full h-full p-4 pl-12 bg-slate-50 border-2 border-transparent focus:border-black focus:bg-white rounded-xl text-slate-900 font-bold outline-none appearance-none cursor-pointer transition-all"
           >
             <option value="">Select Region...</option>
             <option value="Northland">Northland</option>
@@ -89,7 +90,7 @@ export default function SearchBar() {
           <select
             onChange={(e) => setCategory(e.target.value)}
             value={category}
-            className="w-full h-full p-4 pl-12 bg-transparent rounded-xl text-slate-900 font-bold outline-none appearance-none cursor-pointer hover:bg-slate-50 transition"
+            className="w-full h-full p-4 pl-12 bg-slate-50 border-2 border-transparent focus:border-black focus:bg-white rounded-xl text-slate-900 font-bold outline-none appearance-none cursor-pointer transition-all"
           >
             <option value="">Select Category...</option>
             <option value="Agriculture, Forestry & Fishing">Agriculture, Forestry &amp; Fishing</option>
@@ -119,7 +120,7 @@ export default function SearchBar() {
       <div className="flex gap-2">
         <button
           onClick={handleSearch}
-          className="flex-1 bg-neon-pink text-white font-black uppercase tracking-wider py-4 px-10 rounded-xl hover:bg-pink-600 transition-colors"
+          className="flex-1 bg-neon-pink text-white font-black uppercase tracking-wider py-4 px-10 rounded-xl hover:bg-pink-600 transition-colors shadow-sm"
         >
           Search
         </button>
@@ -127,7 +128,7 @@ export default function SearchBar() {
         {hasFilters && (
           <button
             onClick={handleClear}
-            className="bg-slate-100 text-slate-700 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-slate-200 transition-colors flex items-center gap-2"
+            className="bg-slate-100 border-2 border-transparent hover:border-black text-slate-700 font-black uppercase tracking-wider py-4 px-6 rounded-xl hover:bg-white transition-all flex items-center gap-2"
             title="Clear filters"
           >
             <X className="w-5 h-5" />
