@@ -2,17 +2,23 @@
 
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { Loader2, Upload, Image as ImageIcon } from 'lucide-react';
+import { Loader2, Upload, Image as ImageIcon, X } from 'lucide-react';
 
 interface ImageUploadProps {
   onUpload: (url: string) => void;
   label: string;
   businessName?: string;
+  currentImageUrl?: string;
 }
 
-export default function ImageUpload({ onUpload, label, businessName }: ImageUploadProps) {
+export default function ImageUpload({ onUpload, label, businessName, currentImageUrl }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(currentImageUrl || null);
+
+  const handleRemove = () => {
+    setPreview(null);
+    onUpload(''); // Clear the image URL in parent
+  };
 
   // Generate placeholder logo from business name
   const generatePlaceholder = (name: string): string => {
@@ -105,8 +111,16 @@ export default function ImageUpload({ onUpload, label, businessName }: ImageUplo
       </label>
       <div className="flex items-center gap-4">
         {preview ? (
-          <div className="relative w-24 h-24 rounded-lg overflow-hidden border border-neon-cyan/50 shadow-neon-cyan">
+          <div className="relative w-24 h-24 rounded-lg overflow-hidden border border-neon-cyan/50 shadow-neon-cyan group">
             <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+            <button
+              type="button"
+              onClick={handleRemove}
+              className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
+              title="Remove image"
+            >
+              <X className="w-3 h-3" />
+            </button>
           </div>
         ) : businessName ? (
           <div className="relative w-24 h-24 rounded-lg overflow-hidden border border-neon-purple/50 shadow-neon-purple">

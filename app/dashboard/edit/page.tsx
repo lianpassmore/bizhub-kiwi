@@ -169,7 +169,7 @@ export default function EditProfile() {
               Brand Visuals
             </h3>
             <div className="h-48 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 hover:bg-slate-100 transition relative">
-               <ImageUpload label="Update Logo" onUpload={handleLogoUpload} />
+               <ImageUpload label="Update Logo" onUpload={handleLogoUpload} currentImageUrl={formData.logo_url} businessName={formData.name} />
             </div>
             {formData.logo_url && <p className="text-xs text-green-600 font-bold mt-2 text-center">✓ Logo Uploaded</p>}
           </div>
