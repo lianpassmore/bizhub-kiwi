@@ -25,10 +25,10 @@ export default function Home() {
       <div className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden z-10">
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            
+          <div className="grid lg:grid-cols-2 gap-12 items-center relative">
+
             {/* Left: Text & Search */}
-            <div className="max-w-2xl relative">
+            <div className="max-w-2xl relative z-20">
               {/* Glowing Badge */}
               <div className="inline-block px-4 py-1 rounded-full border border-neon-cyan/50 bg-neon-cyan/10 text-neon-cyan font-bold text-sm mb-6 shadow-neon-cyan">
                 ⚡ POWERED BY KIWIS
@@ -63,9 +63,9 @@ export default function Home() {
             </div>
 
             {/* Right: Masonry Grid (Now with Neon Borders) */}
-            <div className="hidden lg:flex gap-4 h-[600px] overflow-hidden mask-image-gradient">
+            <div className="hidden lg:flex gap-4 h-[600px] overflow-hidden mask-image-gradient relative">
               {/* Column 1 */}
-              <div className="flex flex-col gap-4 animate-scroll-up">
+              <div className="flex flex-col gap-4 animate-scroll-up shrink-0">
                 {[...MASONRY_IMAGES, ...MASONRY_IMAGES].map((src, i) => (
                   <div key={i} className="w-48 h-64 rounded-xl overflow-hidden border-2 border-night-800 hover:border-neon-cyan transition-all duration-300 shadow-lg relative group">
                     <div className="absolute inset-0 bg-neon-purple/20 group-hover:bg-transparent transition-colors z-10"></div>
@@ -75,7 +75,7 @@ export default function Home() {
               </div>
               
               {/* Column 2 */}
-              <div className="flex flex-col gap-4 animate-scroll-down mt-12">
+              <div className="flex flex-col gap-4 animate-scroll-down mt-12 shrink-0">
                 {[...MASONRY_IMAGES, ...MASONRY_IMAGES].reverse().map((src, i) => (
                   <div key={i} className="w-48 h-64 rounded-xl overflow-hidden border-2 border-night-800 hover:border-neon-pink transition-all duration-300 shadow-lg relative group">
                     <div className="absolute inset-0 bg-neon-purple/20 group-hover:bg-transparent transition-colors z-10"></div>
