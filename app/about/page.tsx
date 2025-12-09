@@ -138,13 +138,13 @@ export default function About() {
         <h2 className="text-3xl font-bold text-white mb-12">Want to chat? Let's Connect.</h2>
         
         <div className="flex flex-col md:flex-row justify-center gap-6">
-          <a href="tel:0221725793" className="flex items-center gap-4 bg-night-900 border border-white/10 px-8 py-6 rounded-2xl hover:border-[#F2547D] transition group text-left">
+          <a href="tel:0212997881" className="flex items-center gap-4 bg-night-900 border border-white/10 px-8 py-6 rounded-2xl hover:border-[#F2547D] transition group text-left">
              <div className="w-12 h-12 bg-[#F2547D]/20 rounded-full flex items-center justify-center text-[#F2547D] group-hover:scale-110 transition">
                <Phone className="w-6 h-6" />
              </div>
              <div>
                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider">Mobile (Texts Welcome)</p>
-               <p className="text-xl font-black text-white">022 172 5793</p>
+               <p className="text-xl font-black text-white">021 299 7881</p>
              </div>
           </a>
 
