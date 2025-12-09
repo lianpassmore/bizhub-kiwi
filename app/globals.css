@@ -5,19 +5,19 @@
   --color-neon-pink: #FF0099;
   --color-neon-cyan: #00F0FF;
   --color-neon-yellow: #FFD600;
-  --color-neon-purple: #7000FF;
-  
-  /* Dark backgrounds */
-  --color-night-950: #050511;
-  --color-night-900: #0a0a1f;
-  --color-night-800: #12123a;
+  --color-neon-purple: #9D4EDD;
+
+  /* Pacific Twilight backgrounds (softer slate colors) */
+  --color-night-950: #0F172A;
+  --color-night-900: #1E293B;
+  --color-night-800: #334155;
 }
 
 @layer base {
   body {
     @apply bg-night-950 text-white;
-    /* Set the default to Deep Night Blue and White Text */
-    background-color: #050511;
+    /* Pacific Twilight - Deep Slate background for better readability */
+    background-color: #0F172A;
     color: white;
     overflow-x: hidden;
   }
