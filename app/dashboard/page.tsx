@@ -13,7 +13,6 @@ export default function Dashboard() {
   const [business, setBusiness] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
-  const [showUpgradeBanner, setShowUpgradeBanner] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -76,44 +75,6 @@ export default function Dashboard() {
             <LogOut className="w-5 h-5" /> Sign Out
           </button>
         </div>
-
-        {/* Upgrade Banner for Free Users */}
-        {(!business.subscription_tier || business.subscription_tier === 'free') && showUpgradeBanner && (
-          <div className="bg-gradient-to-r from-neon-pink to-purple-600 border-2 border-black rounded-2xl p-6 md:p-8 mb-8 shadow-pop relative overflow-hidden">
-            <button
-              onClick={() => setShowUpgradeBanner(false)}
-              className="absolute top-4 right-4 text-white hover:text-slate-900 transition-colors"
-              aria-label="Dismiss"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-              <div className="p-4 bg-white/20 backdrop-blur-sm border-2 border-white rounded-xl">
-                <Zap className="w-10 h-10 text-neon-yellow fill-neon-yellow" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-2xl md:text-3xl font-black text-white mb-2 uppercase tracking-tight">
-                  Unlock Premium Features
-                </h3>
-                <p className="text-white/90 font-medium mb-4">
-                  Get verified badge, clickable links, unlimited gallery, and appear higher in search results
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    href="/subscribe"
-                    className="inline-flex items-center gap-2 bg-white text-slate-900 border-2 border-black px-6 py-3 rounded-xl font-black uppercase tracking-wider shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
-                  >
-                    <Zap className="w-5 h-5" />
-                    Upgrade to Pro
-                  </Link>
-                  <span className="inline-flex items-center gap-2 text-white font-bold text-sm py-3">
-                    Starting at $29/month
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Main Business Card */}
         <div className="bg-white border-2 border-black rounded-2xl p-6 md:p-10 mb-12 shadow-pop relative overflow-hidden">
