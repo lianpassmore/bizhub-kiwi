@@ -14,12 +14,8 @@
 }
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-  }
-
   body {
+    @apply bg-night-950 text-white;
     /* Set the default to Deep Night Blue and White Text */
     background-color: #050511;
     color: white;
