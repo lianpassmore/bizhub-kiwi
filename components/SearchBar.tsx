@@ -100,7 +100,7 @@ export default function SearchBar() {
       {/* Search Button */}
       <button
         type="submit"
-        className="bg-neon-cyan text-night-950 font-black uppercase tracking-wider py-3 px-8 rounded-lg hover:bg-white hover:shadow-neon-cyan transition-all duration-300 whitespace-nowrap"
+        className="bg-neon-cyan text-night-950 font-black uppercase tracking-widest py-3 px-8 rounded-lg hover:bg-white hover:shadow-neon-cyan transition-all duration-300 whitespace-nowrap shrink-0 min-w-[140px]"
       >
         Search
       </button>
