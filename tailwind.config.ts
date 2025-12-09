@@ -9,34 +9,33 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        // The Penny "Neon" Palette
+        background: "#ffffff", // Pure White
+        foreground: "#0f172a", // Slate 900 (Deep Navy) for text
+        
+        // The Penny "Pop" Palette (Same colors, used differently)
         neon: {
-          pink: '#FF0099',    // Hot Pink (CTA Buttons)
-          cyan: '#00F0FF',    // Electric Blue (Borders/Accents)
-          yellow: '#FFD600',  // Golden Kiwi (Highlight text)
-          purple: '#7000FF',  // Deep Violet (Gradients)
+          pink: '#FF0099',    
+          cyan: '#00F0FF',    
+          yellow: '#FFD600',  
+          purple: '#7000FF',  
         },
-        // The Dark Backgrounds (Not just black, but deep space blue)
-        night: {
-          950: '#050511', // Almost black
-          900: '#0a0a1f', // Deep purple-black
-          800: '#12123a', // Lighter violet
+        // Readable Neutrals
+        slate: {
+          50: '#f8fafc',
+          100: '#f1f5f9',
+          900: '#0f172a', // Main Text
+          600: '#475569', // Secondary Text
         }
       },
-      backgroundImage: {
-        'neon-gradient': 'linear-gradient(to right, #FF0099, #00F0FF)',
-        'grid-pattern': "linear-gradient(to right, #12123a 1px, transparent 1px), linear-gradient(to bottom, #12123a 1px, transparent 1px)",
-      },
       boxShadow: {
-        'neon-pink': '0 0 10px rgba(255, 0, 153, 0.5), 0 0 20px rgba(255, 0, 153, 0.3)',
-        'neon-cyan': '0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3)',
+        // "Hard" shadows instead of "Glows" (Cleaner look)
+        'pop': '4px 4px 0px 0px rgba(15, 23, 42, 1)', 
+        'pop-hover': '2px 2px 0px 0px rgba(15, 23, 42, 1)',
+        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
       },
       animation: {
         "scroll-up": "scroll-up 40s linear infinite",
         "scroll-down": "scroll-down 40s linear infinite",
-        "pulse-glow": "pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         "scroll-up": {
@@ -47,10 +46,6 @@ const config: Config = {
           "0%": { transform: "translateY(-50%)" },
           "100%": { transform: "translateY(0)" },
         },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.8" },
-        }
       },
     },
   },

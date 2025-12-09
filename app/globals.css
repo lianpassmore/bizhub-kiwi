@@ -1,79 +1,96 @@
 @import "tailwindcss";
 
 @theme {
-  /* Neon color palette */
   --color-neon-pink: #FF0099;
   --color-neon-cyan: #00F0FF;
   --color-neon-yellow: #FFD600;
   --color-neon-purple: #9D4EDD;
 
-  /* Pacific Twilight backgrounds (softer slate colors) */
   --color-night-950: #0F172A;
   --color-night-900: #1E293B;
   --color-night-800: #334155;
+
+  --shadow-neon-pink: 0 0 10px rgb(255 0 153 / 0.5), 0 0 20px rgb(255 0 153 / 0.3);
+  --shadow-neon-cyan: 0 0 10px rgb(0 240 255 / 0.5), 0 0 20px rgb(0 240 255 / 0.3);
+
+  --animate-scroll-up: scroll-up 40s linear infinite;
+  --animate-scroll-down: scroll-down 40s linear infinite;
+  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@layer base {
-  body {
-    @apply bg-night-950 text-white;
-    /* Pacific Twilight - Deep Slate background for better readability */
-    background-color: #0F172A;
-    color: white;
-    overflow-x: hidden;
-  }
-}
-
-/* The Cyber Grid Background Effect */
-.bg-grid {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-}
-
-.text-glow {
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.shadow-neon-cyan {
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5), 0 0 20px rgba(0, 240, 255, 0.3);
-}
-
-.shadow-neon-pink {
-  box-shadow: 0 0 10px rgba(255, 0, 153, 0.5), 0 0 20px rgba(255, 0, 153, 0.3);
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Animations for masonry grid */
 @keyframes scroll-up {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-50%);
-  }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
 }
 
 @keyframes scroll-down {
-  0% {
-    transform: translateY(-50%);
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@layer base {
+  :root {
+    --background: #0F172A;
+    --foreground: #ffffff;
   }
-  100% {
-    transform: translateY(0);
+
+  body {
+    /*
+      Default body - pages set their own backgrounds
+    */
+    overflow-x: hidden;
+  }
+
+  body::selection {
+    background-color: var(--color-neon-pink);
+    color: white;
   }
 }
 
-.animate-scroll-up {
-  animation: scroll-up 40s linear infinite;
+@layer utilities {
+  /* 
+    THE CYBER GRID 
+    We leverage 'bg-grid-pattern' from your config here, 
+    but define the size and mask in CSS for better control.
+  */
+  .bg-cyber-grid {
+    background-image: linear-gradient(to right, var(--color-night-900) 1px, transparent 1px),
+                      linear-gradient(to bottom, var(--color-night-900) 1px, transparent 1px);
+    background-size: 40px 40px;
+    /* Soft fade on top and bottom so it doesn't cut off harshly */
+    mask-image: linear-gradient(to bottom, transparent, 10%, white, 90%, transparent);
+  }
+
+  /* 
+    TEXT GLOW 
+    (Not in config, so we keep it here as a utility)
+  */
+  .text-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  /* 
+    SCROLLBAR HIDING 
+    (Standard utility for clean UI)
+  */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;    /* Firefox */
+  }
 }
 
-.animate-scroll-down {
-  animation: scroll-down 40s linear infinite;
-}
+/* 
+  NOTE: 
+  - Animations (scroll-up, scroll-down) are REMOVED from here.
+    Your config generates 'animate-scroll-up' automatically.
+  - Shadows (neon-pink, neon-cyan) are REMOVED from here.
+    Your config generates 'shadow-neon-pink' automatically.
+*/
