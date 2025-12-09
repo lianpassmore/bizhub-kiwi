@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
-import { ExternalLink, Edit, Eye, LogOut, Globe, Mail, Phone } from 'lucide-react';
+import { ExternalLink, Edit, Eye, LogOut, Globe, Mail, Phone, Zap, X } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Dashboard() {
@@ -13,6 +13,7 @@ export default function Dashboard() {
   const [business, setBusiness] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [showUpgradeBanner, setShowUpgradeBanner] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
@@ -76,6 +77,44 @@ export default function Dashboard() {
           </button>
         </div>
 
+        {/* Upgrade Banner for Free Users */}
+        {business.subscription_tier === 'free' && showUpgradeBanner && (
+          <div className="bg-gradient-to-r from-neon-pink to-purple-600 border-2 border-black rounded-2xl p-6 md:p-8 mb-8 shadow-pop relative overflow-hidden">
+            <button
+              onClick={() => setShowUpgradeBanner(false)}
+              className="absolute top-4 right-4 text-white hover:text-slate-900 transition-colors"
+              aria-label="Dismiss"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+              <div className="p-4 bg-white/20 backdrop-blur-sm border-2 border-white rounded-xl">
+                <Zap className="w-10 h-10 text-neon-yellow fill-neon-yellow" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-2xl md:text-3xl font-black text-white mb-2 uppercase tracking-tight">
+                  Unlock Premium Features
+                </h3>
+                <p className="text-white/90 font-medium mb-4">
+                  Get verified badge, clickable links, unlimited gallery, and appear higher in search results
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    href="/subscribe"
+                    className="inline-flex items-center gap-2 bg-white text-slate-900 border-2 border-black px-6 py-3 rounded-xl font-black uppercase tracking-wider shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                  >
+                    <Zap className="w-5 h-5" />
+                    Upgrade to Pro
+                  </Link>
+                  <span className="inline-flex items-center gap-2 text-white font-bold text-sm py-3">
+                    Starting at $24/month
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Main Business Card */}
         <div className="bg-white border-2 border-black rounded-2xl p-6 md:p-10 mb-12 shadow-pop relative overflow-hidden">
            {/* Decorative strip */}
@@ -109,10 +148,79 @@ export default function Dashboard() {
         </div>
 
         {/* UPGRADES */}
-        <h2 className="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3 uppercase tracking-tight">
-          <span className="text-3xl">⚡</span> Premium Add-ons
-        </h2>
-        
+        {business.subscription_tier === 'free' ? (
+          <>
+            <h2 className="text-2xl font-black text-slate-900 mb-4 flex items-center gap-3 uppercase tracking-tight">
+              <span className="text-3xl">⚡</span> Upgrade Your Profile
+            </h2>
+            <p className="text-slate-600 font-medium mb-8">
+              You're on the <span className="font-black text-slate-900">Free Plan</span>. Unlock these premium features to grow your business:
+            </p>
+
+            <div className="bg-slate-900 border-2 border-black rounded-2xl p-8 mb-12 shadow-pop">
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="flex-1">
+                  <div className="inline-block bg-neon-yellow border-2 border-black px-4 py-2 rounded-full text-xs font-black uppercase mb-4 shadow-sm">
+                    Pro Features
+                  </div>
+                  <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tight">
+                    Everything You Need to Stand Out
+                  </h3>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-center gap-3 text-white font-medium">
+                      <Zap className="w-5 h-5 text-neon-yellow fill-neon-yellow" />
+                      Verified Green Badge — Build Trust Instantly
+                    </li>
+                    <li className="flex items-center gap-3 text-white font-medium">
+                      <Zap className="w-5 h-5 text-neon-yellow fill-neon-yellow" />
+                      Clickable Website & Social Links
+                    </li>
+                    <li className="flex items-center gap-3 text-white font-medium">
+                      <Zap className="w-5 h-5 text-neon-yellow fill-neon-yellow" />
+                      One-Tap Mobile Calling Button
+                    </li>
+                    <li className="flex items-center gap-3 text-white font-medium">
+                      <Zap className="w-5 h-5 text-neon-yellow fill-neon-yellow" />
+                      Unlimited Image Gallery
+                    </li>
+                    <li className="flex items-center gap-3 text-white font-medium">
+                      <Zap className="w-5 h-5 text-neon-yellow fill-neon-yellow" />
+                      Premium Templates
+                    </li>
+                    <li className="flex items-center gap-3 text-white font-medium">
+                      <Zap className="w-5 h-5 text-neon-yellow fill-neon-yellow" />
+                      Higher Search Ranking
+                    </li>
+                  </ul>
+                  <Link
+                    href="/subscribe"
+                    className="inline-flex items-center gap-2 bg-neon-pink border-2 border-black text-white px-8 py-4 rounded-xl font-black uppercase tracking-wider shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                  >
+                    <Zap className="w-5 h-5" />
+                    Upgrade Now — From $24/mo
+                  </Link>
+                </div>
+                <div className="bg-white border-2 border-black rounded-xl p-6 shadow-sm">
+                  <div className="text-center">
+                    <p className="text-xs font-black text-slate-500 uppercase mb-2">Starting at</p>
+                    <div className="text-5xl font-black text-slate-900 mb-1">$24</div>
+                    <p className="text-sm font-bold text-slate-600 mb-4">/month</p>
+                    <p className="text-xs text-slate-500 font-medium">
+                      Save 20% with annual billing
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2 className="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3 uppercase tracking-tight">
+              <span className="text-3xl">⚡</span> Premium Add-ons
+            </h2>
+          </>
+        )}
+
         <div className="grid md:grid-cols-2 gap-8 mb-12">
 
           {/* Domain Card */}
