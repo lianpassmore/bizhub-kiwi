@@ -118,7 +118,7 @@ export default function Signup() {
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h4 className="font-black text-slate-900 text-xl mb-1">Pro</h4>
-                    <div className="text-3xl font-black text-slate-900">${billingCycle === 'monthly' ? '29' : '24'}/mo</div>
+                    <div className="text-3xl font-black text-slate-900">$29/mo</div>
                     <p className="text-xs text-slate-500 font-bold uppercase mt-1">
                       Billed {billingCycle === 'monthly' ? 'Monthly' : 'Yearly'}
                     </p>

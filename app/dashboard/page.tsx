@@ -107,7 +107,7 @@ export default function Dashboard() {
                     Upgrade to Pro
                   </Link>
                   <span className="inline-flex items-center gap-2 text-white font-bold text-sm py-3">
-                    Starting at $24/month
+                    Starting at $29/month
                   </span>
                 </div>
               </div>
@@ -197,13 +197,13 @@ export default function Dashboard() {
                     className="inline-flex items-center gap-2 bg-neon-pink border-2 border-black text-white px-8 py-4 rounded-xl font-black uppercase tracking-wider shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
                   >
                     <Zap className="w-5 h-5" />
-                    Upgrade Now — From $24/mo
+                    Upgrade Now — From $29/mo
                   </Link>
                 </div>
                 <div className="bg-white border-2 border-black rounded-xl p-6 shadow-sm">
                   <div className="text-center">
                     <p className="text-xs font-black text-slate-500 uppercase mb-2">Starting at</p>
-                    <div className="text-5xl font-black text-slate-900 mb-1">$24</div>
+                    <div className="text-5xl font-black text-slate-900 mb-1">$29</div>
                     <p className="text-sm font-bold text-slate-600 mb-4">/month</p>
                     <p className="text-xs text-slate-500 font-medium">
                       Save 20% with annual billing
