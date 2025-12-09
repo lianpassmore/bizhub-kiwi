@@ -15,13 +15,19 @@ export default function Signup() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  // Business profile fields
+  const [businessName, setBusinessName] = useState('');
+  const [category, setCategory] = useState('Trades');
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const [address, setAddress] = useState('');
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     // If they selected Pro, redirect to Stripe checkout after signup
     if (selectedPlan === 'pro') {
-      const { error, data } = await supabase.auth.signUp({ email, password });
+      const { error } = await supabase.auth.signUp({ email, password });
       if (error) {
         setError(error.message);
         setLoading(false);
@@ -33,12 +39,28 @@ export default function Signup() {
         window.location.href = stripeUrl;
       }
     } else {
-      // Free plan - just sign up and show success
-      const { error } = await supabase.auth.signUp({ email, password });
+      // Free plan - create account and business profile
+      const { error, data } = await supabase.auth.signUp({ email, password });
       if (error) {
         setError(error.message);
         setLoading(false);
-      } else {
+      } else if (data.user) {
+        // Create business profile
+        const slug = businessName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        const { error: bizError } = await supabase.from('businesses').insert({
+          owner_id: data.user.id,
+          name: businessName,
+          category: category,
+          regions: selectedRegions,
+          address: address,
+          slug: slug,
+          subscription_tier: 'free'
+        });
+
+        if (bizError) {
+          setError('Account created but business profile failed. Please complete your profile in the dashboard.');
+        }
+
         setSuccess(true);
         setLoading(false);
       }
@@ -184,6 +206,60 @@ export default function Signup() {
               </div>
             </div>
           </div>
+
+          {/* Business Profile (only for free plan) */}
+          {selectedPlan === 'free' && (
+            <div>
+              <h3 className="text-lg font-black text-slate-900 mb-4 uppercase tracking-tight">Business Details</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xs font-black text-slate-900 uppercase tracking-wider mb-2">Business Name</label>
+                  <input type="text" value={businessName} onChange={(e) => setBusinessName(e.target.value)} required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-bold focus:border-black outline-none" placeholder="Joe's Cafe" />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-black text-slate-900 uppercase tracking-wider mb-2">Category</label>
+                  <select value={category} onChange={(e) => setCategory(e.target.value)} required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-bold focus:border-black outline-none cursor-pointer">
+                    <option>Trades</option>
+                    <option>Hospitality</option>
+                    <option>Retail</option>
+                    <option>Professional Services</option>
+                    <option>Health & Beauty</option>
+                    <option>Automotive</option>
+                    <option>Creative</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-black text-slate-900 uppercase tracking-wider mb-2">Business Address</label>
+                  <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-bold focus:border-black outline-none" placeholder="123 Main Street, Auckland" />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-black text-slate-900 uppercase tracking-wider mb-2">Regions (Select all that apply)</label>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    {['Northland', 'Auckland', 'Waikato', 'Wellington', 'Christchurch', 'Dunedin', 'Queenstown', 'Tauranga', 'Hamilton'].map((region) => (
+                      <label key={region} className="flex items-center gap-2 bg-slate-50 border-2 border-slate-200 rounded-lg p-2 cursor-pointer hover:border-black transition-all">
+                        <input
+                          type="checkbox"
+                          checked={selectedRegions.includes(region)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedRegions([...selectedRegions, region]);
+                            } else {
+                              setSelectedRegions(selectedRegions.filter(r => r !== region));
+                            }
+                          }}
+                          className="w-4 h-4 accent-neon-pink rounded cursor-pointer"
+                        />
+                        <span className="text-slate-900 font-bold text-xs">{region}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           <button type="submit" disabled={loading} className="w-full bg-neon-cyan border-2 border-black text-slate-900 font-black py-4 rounded-xl shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase tracking-wider flex justify-center items-center gap-2">
             {loading ? <Loader2 className="animate-spin" /> : (
