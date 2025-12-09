@@ -10,12 +10,11 @@ export default function Subscribe() {
 
   const handleSubscribe = () => {
     setLoading(true);
-    // TODO: Connect this to Stripe Checkout later
-    setTimeout(() => {
-        alert("This would redirect to Stripe Checkout now.");
-        setLoading(false);
-        window.location.href = '/onboarding'; // Bypass for now
-    }, 1000);
+    // Redirect to Stripe Checkout
+    const stripeUrl = billingCycle === 'yearly'
+      ? 'https://buy.stripe.com/14A9AV5GN2Akb0UghH'
+      : 'https://buy.stripe.com/14A5kFb170sc6KEd5v';
+    window.location.href = stripeUrl;
   };
 
   return (
@@ -82,11 +81,11 @@ export default function Subscribe() {
             <h3 className="text-neon-cyan font-bold uppercase tracking-widest mb-2">BizHub Pro</h3>
             <div className="flex items-end justify-center gap-1 mb-6">
               <span className="text-5xl font-black text-white">
-                ${billingCycle === 'monthly' ? '19' : '15'}
+                ${billingCycle === 'monthly' ? '29' : '24'}
               </span>
               <span className="text-gray-500 mb-2">/mo</span>
             </div>
-            <p className="text-sm text-gray-400 mb-8">Billed {billingCycle === 'monthly' ? 'monthly' : '$180 yearly'}</p>
+            <p className="text-sm text-gray-400 mb-8">Billed {billingCycle === 'monthly' ? 'monthly' : '$288 yearly'}</p>
 
             <button 
               onClick={handleSubscribe}
