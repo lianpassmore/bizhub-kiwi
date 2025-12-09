@@ -78,7 +78,7 @@ export default function Dashboard() {
         </div>
 
         {/* Upgrade Banner for Free Users */}
-        {business.subscription_tier === 'free' && showUpgradeBanner && (
+        {(!business.subscription_tier || business.subscription_tier === 'free') && showUpgradeBanner && (
           <div className="bg-gradient-to-r from-neon-pink to-purple-600 border-2 border-black rounded-2xl p-6 md:p-8 mb-8 shadow-pop relative overflow-hidden">
             <button
               onClick={() => setShowUpgradeBanner(false)}
@@ -148,7 +148,7 @@ export default function Dashboard() {
         </div>
 
         {/* UPGRADES - Only show for free users */}
-        {business.subscription_tier === 'free' && (
+        {(!business.subscription_tier || business.subscription_tier === 'free') && (
           <>
             <h2 className="text-2xl font-black text-slate-900 mb-4 flex items-center gap-3 uppercase tracking-tight">
               <span className="text-3xl">⚡</span> Upgrade Your Profile
