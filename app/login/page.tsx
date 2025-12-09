@@ -50,7 +50,7 @@ export default function Login() {
             <label className="block text-xs font-black text-slate-900 uppercase tracking-wider mb-2">Password</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-bold focus:border-black outline-none" placeholder="••••••••" />
           </div>
-          <button type="submit" disabled={loading} className="w-full bg-neon-pink border-2 border-black text-white font-black py-4 rounded-xl shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase tracking-wider flex justify-center">
+          <button type="submit" disabled={loading} className="w-full bg-neon-cyan border-2 border-black text-slate-900 font-black py-4 rounded-xl shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase tracking-wider flex justify-center">
             {loading ? <Loader2 className="animate-spin" /> : 'Log In'}
           </button>
         </form>

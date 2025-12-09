@@ -19,7 +19,7 @@ export default function EditProfile() {
   const [formData, setFormData] = useState({
     name: '',
     category: '',
-    region: '',
+    regions: [] as string[],
     about: '',
     phone: '',
     email: '',
@@ -57,10 +57,18 @@ export default function EditProfile() {
         const socials = business.social_links || {};
         const gallery = Array.isArray(business.gallery_urls) ? business.gallery_urls : [];
 
+        // Handle regions - migrate from old single region to new multi-region
+        let regions: string[] = [];
+        if (business.regions && Array.isArray(business.regions)) {
+          regions = business.regions;
+        } else if (business.region) {
+          regions = [business.region]; // Convert old single region to array
+        }
+
         setFormData({
           name: business.name || '',
           category: business.category || '',
-          region: business.region || '',
+          regions: regions,
           about: business.about || '',
           phone: business.contact_phone || '',
           email: business.contact_email || '',
@@ -116,7 +124,7 @@ export default function EditProfile() {
       .update({
         name: formData.name,
         category: formData.category,
-        region: formData.region,
+        regions: formData.regions,
         about: formData.about,
         contact_phone: formData.phone,
         contact_email: formData.email,
@@ -163,6 +171,7 @@ export default function EditProfile() {
             <div className="h-48 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 hover:bg-slate-100 transition relative">
                <ImageUpload label="Update Logo" onUpload={handleLogoUpload} />
             </div>
+            {formData.logo_url && <p className="text-xs text-green-600 font-bold mt-2 text-center">✓ Logo Uploaded</p>}
           </div>
 
           {/* Section 2: Core Details */}
@@ -183,28 +192,39 @@ export default function EditProfile() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Region</label>
-                <select name="region" value={formData.region} onChange={handleChange} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-bold focus:border-black focus:bg-white outline-none">
-                  <option>Northland</option>
-                  <option>Auckland</option>
-                  <option>Waikato</option>
-                  <option>Wellington</option>
-                  <option>Christchurch</option>
-                  <option>Dunedin</option>
-                  {/* Add more as needed */}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Category</label>
-                <select name="category" value={formData.category} onChange={handleChange} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-bold focus:border-black focus:bg-white outline-none">
-                  <option>Trades</option>
-                  <option>Hospitality</option>
-                  <option>Retail</option>
-                  <option>Professional Services</option>
-                  <option>Health & Beauty</option>
-                </select>
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Category</label>
+              <select name="category" value={formData.category} onChange={handleChange} className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-bold focus:border-black focus:bg-white outline-none cursor-pointer">
+                <option>Trades</option>
+                <option>Hospitality</option>
+                <option>Retail</option>
+                <option>Professional Services</option>
+                <option>Health & Beauty</option>
+                <option>Automotive</option>
+                <option>Creative</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Regions (Select all that apply)</label>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {['Northland', 'Auckland', 'Waikato', 'Wellington', 'Christchurch', 'Dunedin', 'Queenstown', 'Tauranga', 'Hamilton'].map((region) => (
+                  <label key={region} className="flex items-center gap-2 bg-slate-50 border-2 border-slate-200 rounded-xl p-3 cursor-pointer hover:border-black transition-all">
+                    <input
+                      type="checkbox"
+                      checked={formData.regions.includes(region)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setFormData({ ...formData, regions: [...formData.regions, region] });
+                        } else {
+                          setFormData({ ...formData, regions: formData.regions.filter(r => r !== region) });
+                        }
+                      }}
+                      className="w-5 h-5 accent-neon-pink rounded cursor-pointer"
+                    />
+                    <span className="text-slate-900 font-bold text-sm">{region}</span>
+                  </label>
+                ))}
               </div>
             </div>
 
@@ -215,7 +235,7 @@ export default function EditProfile() {
                 rows={6}
                 value={formData.about}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-medium focus:border-black focus:bg-white outline-none"
+                className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-medium focus:border-black focus:bg-white outline-none resize-none"
               />
             </div>
 
@@ -275,7 +295,21 @@ export default function EditProfile() {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 bg-slate-50 border-2 border-slate-200 p-4 rounded-xl">
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">YouTube Video (Optional)</label>
+              <div className="relative">
+                <Youtube className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-red-500" />
+                <input
+                  name="youtube"
+                  value={formData.youtube}
+                  onChange={handleChange}
+                  placeholder="https://youtu.be/..."
+                  className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 pl-12 text-slate-900 font-bold focus:border-black focus:bg-white outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 bg-slate-50 border-2 border-slate-200 p-4 rounded-xl cursor-pointer hover:border-black transition">
               <input
                 type="checkbox"
                 checked={formData.isMobile}
@@ -284,36 +318,42 @@ export default function EditProfile() {
               />
               <div>
                 <span className="block text-slate-900 font-bold text-sm">I am a Mobile/Online Business</span>
-                <span className="block text-slate-500 text-xs font-bold uppercase">Hide my exact address</span>
+                <span className="block text-slate-500 text-xs font-bold uppercase">Hide my exact address on the map</span>
               </div>
             </div>
           </div>
 
-          {/* Section 4: Social Links */}
+          {/* Section 4: Social Links (LOCKED FOR FREE TIER) */}
           <div className="bg-white border-2 border-black p-8 rounded-2xl shadow-sm space-y-6">
              <h3 className="text-slate-900 font-black uppercase tracking-widest text-sm mb-2 flex items-center gap-2">
               <span className="w-3 h-3 bg-neon-purple border-2 border-black rounded-full"></span>
               Social Links
             </h3>
             {formData.tier === 'free' ? (
-              <div className="bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl p-12 text-center">
-                <Lock className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                <h4 className="text-slate-900 font-bold mb-2">Social Links Locked</h4>
-                <p className="text-slate-600 text-sm font-medium mb-4">Upgrade to Pro to add clickable social media links</p>
+              <div className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl p-8 text-center">
+                <Lock className="w-10 h-10 text-slate-400 mx-auto mb-3" />
+                <h4 className="text-slate-900 font-bold mb-1">Links are Locked</h4>
+                <p className="text-slate-600 text-sm font-medium mb-4">Free users cannot display clickable social links.</p>
                 <Link href="/subscribe" className="inline-block bg-neon-pink text-white border-2 border-black px-6 py-2 rounded-lg font-black uppercase tracking-wider shadow-pop hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-pop-hover transition-all">Unlock Pro</Link>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 gap-4">
                 <input name="facebook" value={formData.facebook} onChange={handleChange} placeholder="Facebook URL" className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-bold focus:border-black outline-none" />
                 <input name="instagram" value={formData.instagram} onChange={handleChange} placeholder="Instagram URL" className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-bold focus:border-black outline-none" />
+                <input name="linkedin" value={formData.linkedin} onChange={handleChange} placeholder="LinkedIn URL" className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-bold focus:border-black outline-none" />
+                <input name="tiktok" value={formData.tiktok} onChange={handleChange} placeholder="TikTok URL" className="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-4 text-slate-900 font-bold focus:border-black outline-none" />
               </div>
             )}
           </div>
 
-          {/* Section 5: Templates */}
-          <TemplateSelector currentTemplate={formData.template} isPro={formData.tier === 'pro'} onSelect={(t: string) => setFormData({ ...formData, template: t })} />
+          {/* Section 5: Templates (PRO ONLY - Managed by Component) */}
+          <TemplateSelector 
+             currentTemplate={formData.template} 
+             isPro={formData.tier === 'pro'} 
+             onSelect={(t: string) => setFormData({ ...formData, template: t })} 
+          />
 
-          {/* Section 6: Gallery */}
+          {/* Section 6: Gallery (LOCKED FOR FREE TIER) */}
           <div className="bg-white border-2 border-black p-8 rounded-2xl shadow-sm">
             <h3 className="text-slate-900 font-black uppercase tracking-widest text-sm mb-6 flex items-center gap-2">
               <span className="w-3 h-3 bg-neon-cyan border-2 border-black rounded-full"></span>

@@ -12,8 +12,8 @@ export default function Subscribe() {
     setLoading(true);
     // Stripe Logic
     const stripeUrl = billingCycle === 'yearly'
-      ? 'https://buy.stripe.com/14A9AV5GN2Akb0UghH'
-      : 'https://buy.stripe.com/14A5kFb170sc6KEd5v';
+      ? 'https://buy.stripe.com/14A9AV5GN2Akb0UghH2wU00'
+      : 'https://buy.stripe.com/14A5kFb170sc6KEd5v2wU01';
     window.location.href = stripeUrl;
   };
 
@@ -91,10 +91,12 @@ export default function Subscribe() {
               Billed {billingCycle === 'monthly' ? 'monthly' : '$288 yearly'}
             </p>
 
-            <button 
+<button 
               onClick={handleSubscribe}
               disabled={loading}
-              className="w-full bg-neon-pink border-2 border-black text-white font-black py-4 rounded-xl hover:bg-white hover:text-neon-pink transition-all shadow-pop mb-8 uppercase tracking-wider flex items-center justify-center gap-2"
+              // CHANGED: bg-neon-pink -> bg-slate-900
+              // Hover: hover:bg-neon-cyan hover:text-slate-900
+              className="w-full bg-slate-900 border-2 border-black text-white font-black py-4 rounded-xl hover:bg-neon-cyan hover:text-slate-900 transition-all shadow-pop mb-8 uppercase tracking-wider flex items-center justify-center gap-2"
             >
               {loading ? <Loader2 className="animate-spin" /> : 'Get Verified Now'}
             </button>
@@ -103,7 +105,7 @@ export default function Subscribe() {
               <li className="flex items-center gap-3"><Zap className="w-5 h-5 text-neon-yellow fill-neon-yellow" /> Verified Green Badge</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-neon-cyan" /> Clickable Website & Socials</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-neon-cyan" /> "One-Tap" Mobile Calling</li>
-              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-neon-cyan" /> Unlimited Image Gallery</li>
+              <li className="flex items-center gap-3"><Check className="w-5 h-5 text-neon-cyan" /> 10 Photo Gallery</li>
               <li className="flex items-center gap-3"><Check className="w-5 h-5 text-neon-cyan" /> No Ads on your page</li>
             </ul>
           </div>

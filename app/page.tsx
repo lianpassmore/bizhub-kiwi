@@ -3,12 +3,12 @@ import SearchBar from '@/components/SearchBar';
 import { CheckCircle, Zap, Shield, MapPin } from 'lucide-react';
 
 const MASONRY_IMAGES = [
-  "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=500&q=80",
-  "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80",
-  "https://images.unsplash.com/photo-1595475207225-428b62bda831?w=500&q=80",
-  "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=500&q=80",
-  "https://images.unsplash.com/photo-1521791136064-79858cfd7cdc?w=500&q=80",
-  "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=500&q=80",
+  "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=500&q=80",
+  "https://images.unsplash.com/photo-1556740714-a8395b3bf30f?w=500&q=80",
+  "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&q=80",
+  "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=500&q=80",
+  "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=500&q=80",
+  "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=500&q=80",
 ];
 
 export default function Home() {
@@ -37,9 +37,10 @@ export default function Home() {
                 Powered by Locals
               </div>
 
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9] mb-8 text-slate-900">
+<h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9] mb-8 text-slate-900">
                 THE HUB FOR <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-purple-600">
+                {/* CHANGED: Gradient from Pink/Purple -> Cyan/Blue */}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-blue-600">
                   LOCAL BIZ.
                 </span>
               </h1>
@@ -74,17 +75,27 @@ export default function Home() {
               {/* Column 1 */}
               <div className="flex flex-col gap-6 animate-scroll-up w-1/2">
                 {[...MASONRY_IMAGES, ...MASONRY_IMAGES].map((src, i) => (
-                  <div key={i} className="w-full aspect-[4/5] bg-white rounded-xl overflow-hidden border-2 border-black shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
-                    <img src={src} alt="Business" className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" />
+                  <div key={i} className="w-full aspect-[4/5] bg-slate-100 rounded-xl overflow-hidden border-2 border-black shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
+                    <img
+                      src={src}
+                      alt="Local Business"
+                      crossOrigin="anonymous"
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500"
+                    />
                   </div>
                 ))}
               </div>
-              
+
               {/* Column 2 */}
               <div className="flex flex-col gap-6 animate-scroll-down mt-12 w-1/2">
                 {[...MASONRY_IMAGES, ...MASONRY_IMAGES].reverse().map((src, i) => (
-                  <div key={i} className="w-full aspect-[4/5] bg-white rounded-xl overflow-hidden border-2 border-black shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
-                    <img src={src} alt="Business" className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" />
+                  <div key={i} className="w-full aspect-[4/5] bg-slate-100 rounded-xl overflow-hidden border-2 border-black shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all duration-200">
+                    <img
+                      src={src}
+                      alt="Local Business"
+                      crossOrigin="anonymous"
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500"
+                    />
                   </div>
                 ))}
               </div>

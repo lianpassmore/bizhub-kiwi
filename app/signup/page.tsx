@@ -28,8 +28,8 @@ export default function Signup() {
       } else {
         // Redirect to Stripe with plan info
         const stripeUrl = billingCycle === 'yearly'
-          ? 'https://buy.stripe.com/14A9AV5GN2Akb0UghH'
-          : 'https://buy.stripe.com/14A5kFb170sc6KEd5v';
+          ? 'https://buy.stripe.com/14A9AV5GN2Akb0UghH2wU00'
+          : 'https://buy.stripe.com/14A5kFb170sc6KEd5v2wU01';
         window.location.href = stripeUrl;
       }
     } else {
@@ -133,7 +133,7 @@ export default function Signup() {
                   <li className="flex items-center gap-2"><Zap className="w-4 h-4 text-neon-yellow fill-neon-yellow" /> Verified Badge</li>
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-slate-900" /> Clickable Website & Socials</li>
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-slate-900" /> One-Tap Mobile Calling</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-slate-900" /> Unlimited Gallery</li>
+                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-slate-900" /> 10 Photo Gallery</li>
                 </ul>
 
                 {/* Billing Toggle (only visible when Pro is selected) */}
@@ -185,7 +185,7 @@ export default function Signup() {
             </div>
           </div>
 
-          <button type="submit" disabled={loading} className="w-full bg-neon-pink border-2 border-black text-white font-black py-4 rounded-xl shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase tracking-wider flex justify-center items-center gap-2">
+          <button type="submit" disabled={loading} className="w-full bg-neon-cyan border-2 border-black text-slate-900 font-black py-4 rounded-xl shadow-pop hover:shadow-pop-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase tracking-wider flex justify-center items-center gap-2">
             {loading ? <Loader2 className="animate-spin" /> : (
               selectedPlan === 'pro' ? 'Continue to Payment' : 'Create Free Account'
             )}

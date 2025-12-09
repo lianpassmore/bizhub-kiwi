@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           
-          {/* LOGO */}
+          {/* LOGO - Keep the pink dot as a subtle nod to Penny */}
           <div className="shrink-0 flex items-center">
             <Link href="/" className="text-3xl font-black text-slate-900 tracking-tighter">
               BizHub<span className="text-neon-pink">.kiwi</span>
@@ -34,9 +34,10 @@ export default function Navbar() {
             <Link href="/login" className="text-slate-900 font-bold text-sm uppercase tracking-widest transition hover:opacity-70">
               Log in
             </Link>
+            {/* BUTTON CHANGED: Pink -> Black (More neutral/masculine) */}
             <Link 
               href="/signup" 
-              className="bg-neon-pink text-white px-6 py-3 rounded-lg border-2 border-neon-pink hover:bg-white hover:text-neon-pink transition-all duration-300 font-black uppercase tracking-wider shadow-md hover:shadow-lg"
+              className="bg-slate-900 text-white px-6 py-3 rounded-lg border-2 border-slate-900 hover:bg-white hover:text-slate-900 transition-all duration-300 font-black uppercase tracking-wider shadow-md hover:shadow-lg"
             >
               Get Listed
             </Link>
@@ -58,7 +59,8 @@ export default function Navbar() {
             <Link href="/search" onClick={() => setIsOpen(false)} className="block w-full text-center py-3 text-slate-600 font-bold uppercase tracking-widest">Search</Link>
             <Link href="/community" onClick={() => setIsOpen(false)} className="block w-full text-center py-3 text-slate-600 font-bold uppercase tracking-widest">Community</Link>
             <Link href="/login" onClick={() => setIsOpen(false)} className="block w-full text-center py-3 text-slate-900 font-bold uppercase tracking-widest">Log In</Link>
-            <Link href="/signup" onClick={() => setIsOpen(false)} className="block w-full text-center py-4 bg-neon-pink text-white font-black uppercase tracking-wider rounded-lg">Get Listed Now</Link>
+            {/* MOBILE BUTTON CHANGED */}
+            <Link href="/signup" onClick={() => setIsOpen(false)} className="block w-full text-center py-4 bg-slate-900 text-white font-black uppercase tracking-wider rounded-lg">Get Listed Now</Link>
           </div>
         </div>
       )}

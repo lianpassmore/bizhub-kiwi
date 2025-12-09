@@ -116,11 +116,13 @@ export default function SearchBar() {
         </div>
       </div>
 
-      {/* Bottom Row: Buttons */}
+     {/* Bottom Row: Buttons */}
       <div className="flex gap-2">
         <button
           onClick={handleSearch}
-          className="flex-1 bg-neon-pink text-white font-black uppercase tracking-wider py-4 px-10 rounded-xl hover:bg-pink-600 transition-colors shadow-sm"
+          // CHANGED: bg-neon-pink -> bg-slate-900 (Black)
+          // Added hover:bg-neon-cyan to keep it fun but techy
+          className="flex-1 bg-slate-900 text-white font-black uppercase tracking-wider py-4 px-10 rounded-xl hover:bg-neon-cyan hover:text-slate-900 transition-colors shadow-sm border-2 border-slate-900"
         >
           Search
         </button>
